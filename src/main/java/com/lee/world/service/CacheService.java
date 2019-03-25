@@ -36,4 +36,20 @@ public class CacheService {
         System.out.println("start logic2");
         return word + "2";
     }
+
+    /**
+     * 加上抛出异常的操作，当有异常需要抛出的时候，可以无视该缓存
+     * @param word
+     * @return
+     * @throws Exception
+     */
+    @Cacheable(value="testcache", key="'three_' + #word")
+    public Object tryCacheThree(String word) throws Exception {
+        logger.info("debug : start logic3");
+        System.out.println("start logic3");
+        if (word.equals("exception")) {
+            throw new Exception("123");
+        }
+        return word + "3";
+    }
 }
